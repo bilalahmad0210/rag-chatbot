@@ -20,7 +20,7 @@ This project is a Retrieval-Augmented Generation (RAG) chatbot based on local ve
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/rag-chatbot.git
+git clone https://github.com/bilalahmad0210/rag-chatbot.git
 cd rag-chatbot
 ```
 
@@ -37,7 +37,6 @@ source env/bin/activate
 ### 3️⃣ Install Requirements
 
 ```bash
-pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
