@@ -1,118 +1,129 @@
 
 # 🤖 RAG Chatbot — Amlgo Labs Assignment
 
-This project is a Retrieval-Augmented Generation (RAG) chatbot based on local vector search and a quantized LLM. It enables fast, offline answering of questions based on uploaded documents, using FAISS for retrieval and Mistral-7B-Instruct in GGUF format for local inference.
+A document-grounded chatbot powered by Retrieval-Augmented Generation (RAG) using FAISS, MiniLM embeddings, and a quantized Mistral-7B-Instruct model in GGUF format. This chatbot runs fully **offline**, with **local document processing**, **contextual retrieval**, and **natural language generation** using a **Streamlit** interface.
 
 ---
 
-## 🔹 Key Features
+## 🔧 Project Architecture & Flow
 
-- **📄 Context-Aware Retrieval**: Uses FAISS + MiniLM embeddings to fetch top relevant document chunks.
-- **🧠 Local Model Inference**: Runs `Mistral-7B-Instruct.Q4_K_S.gguf` using `ctransformers` with no GPU or internet required.
-- **🖼️ Streamlit Interface**: Simple input form, context display, and reset capability.
-- **📑 Source Context View**: Shows which document chunks were used for the answer.
-- **💡 Token-Safe Prompting**: Ensures model input stays within context length to avoid token overflow.
+```
+📄 Document → 📚 Chunking → 🔢 Embeddings → 📁 FAISS Index
+                                  ↓
+                             User Query
+                                  ↓
+                        🧠 Semantic Retrieval
+                                  ↓
+                     🗣️ Prompt Construction (LLM)
+                                  ↓
+                     🤖 Local Model Response (GGUF)
+                                  ↓
+                        📑 Displayed with Context
+```
+
+- `retriever.py`: Encodes and indexes document chunks using FAISS.
+- `generator.py`: Loads local LLM (Mistral) using `ctransformers`, builds prompts.
+- `pipeline.py`: Combines retriever and generator into a unified pipeline.
+- `app.py`: Provides the frontend UI using Streamlit.
 
 ---
 
-## 📦 Installation
+## 🧩 Preprocessing Steps[NOT NEEDED ALREADY PROVIDED]
 
-### 1️⃣ Clone the Repository
+### 1. Convert PDF to Text
+
+```bash
+python notebooks/extract_text.py
+```
+
+### 2. Chunk the Text File
+
+```bash
+python notebooks/chunk_text.py
+```
+
+### 3. Generate Embeddings and FAISS Index
+
+```bash
+python notebooks/embed_chunks.py
+```
+
+---
+
+
+## 🧠 Model & Embedding Choices
+
+| Component            | Choice                                | Why?                                      |
+|---------------------|----------------------------------------|-------------------------------------------|
+| Embeddings Model    | `all-MiniLM-L6-v2`                     | Lightweight and accurate for semantic search |
+| Vector Store        | `FAISS`                                | Fast and efficient for local similarity search |
+| LLM                 | `Mistral-7B-Instruct.Q4_K_S.gguf`      | Balanced between performance and speed |
+| Backend Loader      | `ctransformers`                        | Runs quantized `.gguf` LLMs on CPU/GPU     |
+
+---
+
+## ▶️ How to Run Locally (With Streamlit)
+
+### 1. Clone and Set Up
 
 ```bash
 git clone https://github.com/bilalahmad0210/rag-chatbot.git
 cd rag-chatbot
-```
-
-### 2️⃣ Create a Virtual Environment
-
-```bash
 python -m venv env
-# On Windows:
-env\Scripts\activate
-# On macOS/Linux:
-source env/bin/activate
-```
-
-### 3️⃣ Install Requirements
-
-```bash
+env\Scripts\activate   # or source env/bin/activate on Linux/macOS
 pip install -r requirements.txt
 ```
 
----
+### 2. Download Model
 
-## 📥 Download the Model (Required)
+From HuggingFace: https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF  
+Place `.gguf` file in: `model/mistral-7b-instruct.Q4_K_S.gguf`
 
-1. Visit: https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF
-2. Download: `mistral-7b-instruct-v0.1.Q4_K_S.gguf`
-3. Place it in the `model/` folder like so:
-
-```
-rag-chatbot/
-└── model/
-    └── mistral-7b-instruct-v0.1.Q4_K_S.gguf
-```
-
----
-
-## ▶️ Run the App
-
-Start the chatbot locally:
+### 3. Launch Chatbot
 
 ```bash
 streamlit run app.py
 ```
 
-Open your browser to: [http://localhost:8501](http://localhost:8501)
+The app runs on: **http://localhost:8501**
 
 ---
 
-## 📄 Project Structure
+## 💬 Sample Queries
 
-```
-rag-chatbot/
-├── app.py                # Streamlit front-end
-├── src/
-│   ├── pipeline.py       # Orchestrates retrieval and generation
-│   ├── retriever.py      # Uses FAISS + MiniLM for vector search
-│   └── generator.py      # Loads quantized model and generates response
-├── vectordb/             # FAISS index + metadata (not uploaded to GitHub)
-├── model/                # Place your GGUF model here (not uploaded)
-├── requirements.txt
-└── README.md
-```
+| User Question                                      | Expected Answer Snippet                                  |
+|---------------------------------------------------|-----------------------------------------------------------|
+| What services does eBay offer?                    | Tools for pricing, listing, shipping, and sourcing.       |
+| Is eBay a vehicle broker?                         | eBay is not a vehicle broker, dealer, or agent.           |
+| Can users follow AI-generated suggestions?        | Yes, but it’s optional and informational.                 |
+| What is the role of the arbitrator in disputes?   | Resolves disputes and interprets arbitration clauses.     |
 
 ---
 
-## 🧠 Example Questions
+## 🖼️ Screenshots
 
-Ask questions like:
+### 🔍 Example Prompt Construction
 
-- What services does eBay offer?
-- What is the role of the arbitrator?
-- Can users follow AI-generated suggestions?
-- Is eBay a broker or vehicle dealer?
+![Prompt Screenshot](sandbox:/mnt/data/739705b2-8535-410e-be85-0c9b15495c43.png)
+
+### ⚠️ Token Limit Warning
+
+![Token Error](sandbox:/mnt/data/fcd01d8d-ef26-4615-880a-b57987dea717.png)
 
 ---
 
-## ❌ .gitignore Highlights
+## 📺 Demo Video
 
-The following are ignored:
-
-- `model/` folder
-- `vectordb/` folder
-- `env/` (virtual environment)
-- `__pycache__/`, `.pyc`, `.DS_Store`, etc.
+🎥 [Watch full demo on YouTube](https://www.youtube.com/watch?v=xDGLub5JPFE)
 
 ---
 
 ## 📜 License
 
-MIT — feel free to modify and use this project.
+MIT — Free for personal or academic use.
 
 ---
 
-## ✍️ Author
+## 🙋‍♂️ Author
 
-Built by Bilal Ahmad for the Amlgo Labs RAG challenge.
+Built by Bilal Ahmad or the Amlgo Labs AI Engineering Challenge.
