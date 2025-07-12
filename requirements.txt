@@ -1,0 +1,9 @@
+streamlit
+transformers
+sentence-transformers
+faiss-cpu
+torch
+nltk
+accelerate
+PyPDF2
+tqdm
