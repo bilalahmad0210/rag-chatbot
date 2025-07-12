@@ -117,9 +117,9 @@ The app runs on: **http://localhost:8501**
 
 ---
 
-## 📜 License
+## Project Report
 
-MIT — Free for personal or academic use.
+📃 [Report](assets/Project_report.pdf)
 
 ---
 
