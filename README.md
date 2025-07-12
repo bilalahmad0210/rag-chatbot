@@ -143,7 +143,8 @@ The app runs on: **http://localhost:8501**
 
 ## 📺 Demo Video
 
-🎥 [Watch full demo on YouTube](https://www.youtube.com/watch?v=xDGLub5JPFE)
+🎥 ![Watch the video](https://youtu.be/vt5fpE0bzSY)
+
 
 ---
 
