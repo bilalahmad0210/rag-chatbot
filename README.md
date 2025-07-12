@@ -28,6 +28,36 @@ A document-grounded chatbot powered by Retrieval-Augmented Generation (RAG) usin
 
 ---
 
+## 📁 Folder Structure
+
+```
+rag-chatbot/
+├── app.py
+├── README.md
+├── .gitignore
+├── requirements.txt
+├── data/
+│   └── training_doc.txt
+├── chunks/
+│   ├── chunks_0.txt
+│   ├── chunks_...txt
+│   └── chunks_51.txt
+├── vectordb/
+│   ├── index.faiss
+│   └── chunks.pkl
+├── model/
+│   └── mistral-7b-instruct-v0.1.Q4_K_S.gguf
+├── notebooks/
+│   ├── extract_text.py
+│   ├── chunk_text.py
+│   └── embed_chunks.py
+└── src/
+    ├── retriever.py
+    ├── generator.py
+    └── pipeline.py
+```
+
+---
 ## 🧩 Preprocessing Steps[NOT NEEDED ALREADY PROVIDED]
 
 ### 1. Convert PDF to Text
