@@ -102,13 +102,12 @@ The app runs on: **http://localhost:8501**
 
 ## 🖼️ Screenshots
 
-### 🔍 Example Prompt Construction
+### 🔍 Example 
 
-![Prompt Screenshot](sandbox:/mnt/data/739705b2-8535-410e-be85-0c9b15495c43.png)
+![img_1](assets/1.png)
+![img_2](assets/2.png)
+![reset](assets/3.mp4)
 
-### ⚠️ Token Limit Warning
-
-![Token Error](sandbox:/mnt/data/fcd01d8d-ef26-4615-880a-b57987dea717.png)
 
 ---
 
