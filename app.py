@@ -2,7 +2,7 @@ import streamlit as st
 from src.pipeline import get_rag_response
 from src.retriever import load_chunks  
 st.set_page_config(page_title="RAG Chatbot", layout="wide")
-st.title(" RAG Chatbot — Amlgo Labs Assignment")
+st.title(" RAG Chatbot")
 
 st.sidebar.title("Info Panel")
 st.sidebar.markdown("Model in Use: Mistral-7B-Instruct (Q4_K_S.GGUF)")
