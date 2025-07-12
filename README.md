@@ -106,7 +106,7 @@ The app runs on: **http://localhost:8501**
 
 ![img_1](assets/1.png)
 ![img_2](assets/2.png)
-![reset](assets/3.mp4)
+![reset](assets/3.gif)
 
 
 ---
